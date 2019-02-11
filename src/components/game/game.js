@@ -1,4 +1,3 @@
-import PLAYER from '../../consts/player';
 import STATUS from '../../consts/status';
 import {connect} from 'react-redux';
 import React from 'react';
