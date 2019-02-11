@@ -1,22 +1,15 @@
 import React from 'react';
-import Square from '../square/square.js'
+import { connect } from 'react-redux';
+import Square from '../square/square.js';
+import {setSquareValue} from '../../actions';
 import './board.css';
 
 export default class Board extends React.Component {
-  constructor(props){
-    super();
-    this.state = {
-      currentMove: props.currentMove,
-      squares: props.squares
-    };
-  }
-
-    squareClickHandler(id){
-      return this.props.setSquare(id);
-    }
-
-    renderSquare(i) {
-      return <Square id={i} value={this.props.squares[i]} squareClick={(id) => this.squareClickHandler(id)}/>;
+    renderSquare(id) {
+      const mapStateToProps = (state) => ({value: state.squares[id]});
+      const mapDispatchToProps = (dispatch) => ({squareClick: () => dispatch(setSquareValue({id}))});
+      const ConnectedSquare = connect(mapStateToProps, mapDispatchToProps)(Square);
+      return <ConnectedSquare/>;
     }
   
     render() {
